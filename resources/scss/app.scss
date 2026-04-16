@@ -1,0 +1,663 @@
+// ─── Google Fonts ─────────────────────────────────────────────────────────────
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+
+// ─── Bootstrap Variable Overrides (must come BEFORE bootstrap import) ──────────
+$primary: #2563eb;
+$success: #059669;
+$danger: #dc2626;
+$warning: #d97706;
+$info: #7c3aed;
+$font-family-base: "Inter", sans-serif;
+$font-family-code: "JetBrains Mono", monospace;
+$border-radius: 8px;
+$border-radius-lg: 12px;
+$border-radius-pill: 20px;
+$body-bg: #f8fafc;
+$body-color: #1e293b;
+$card-border-width: 0;
+$card-border-radius: 12px;
+$card-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+// ─── Bootstrap 5 ──────────────────────────────────────────────────────────────
+@import "bootstrap/scss/bootstrap";
+
+// ─── EduCore Design Tokens ────────────────────────────────────────────────────
+:root {
+    // Brand
+    --color-primary: #2563eb;
+    --color-success: #059669;
+    --color-purple: #7c3aed;
+    --color-orange: #ea580c;
+    --color-rose: #db2777;
+    --color-amber: #d97706;
+    --color-danger: #dc2626;
+
+    // Text
+    --color-text-dark: #1e293b;
+    --color-text-mid: #94a3b8;
+    --color-text-sub: #64748b;
+
+    // Surfaces
+    --color-bg: #f8fafc;
+    --color-card: #ffffff;
+    --color-border: #e2e8f0;
+    --color-input-border: #cbd5e1;
+    --color-label: #334155;
+
+    // Sidebar
+    --color-sidebar: #0f172a;
+    --color-sidebar-text: #e2e8f0;
+    --color-sidebar-muted: #94a3b8;
+    --color-sidebar-hover: rgba(255, 255, 255, 0.06);
+    --color-sidebar-active: rgba(255, 255, 255, 0.08);
+
+    // Portal Identity
+    --portal-super-admin: #4338ca;
+    --portal-school-admin: #2563eb;
+    --portal-teacher: #059669;
+    --portal-student: #7c3aed;
+    --portal-parent: #db2777;
+
+    // Shape
+    --radius-card: 12px;
+    --radius-btn: 8px;
+    --radius-input: 8px;
+    --radius-badge: 20px;
+
+    // Shadow
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-dropdown: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+    // Layout
+    --sidebar-width: 260px;
+    --sidebar-collapsed: 70px;
+    --topbar-height: 64px;
+
+    // Fonts
+    --font-primary: "Inter", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+}
+
+// ─── Base ──────────────────────────────────────────────────────────────────────
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-bg);
+    color: var(--color-text-dark);
+}
+
+code,
+.font-mono {
+    font-family: var(--font-mono);
+}
+
+// ─── Sidebar ──────────────────────────────────────────────────────────────────
+.educore-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--color-sidebar);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: width 0.2s ease;
+
+    .sidebar-logo {
+        height: var(--topbar-height);
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        flex-shrink: 0;
+
+        .logo-text {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-dot {
+            color: var(--color-primary);
+        }
+    }
+
+    .sidebar-section-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--color-sidebar-muted);
+        padding: 20px 20px 8px;
+    }
+
+    .sidebar-divider {
+        border-color: rgba(255, 255, 255, 0.06);
+        margin: 8px 0;
+    }
+}
+
+// ─── Sidebar Nav Item ──────────────────────────────────────────────────────────
+.sidebar-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    color: var(--color-sidebar-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--color-sidebar-text);
+        background-color: var(--color-sidebar-hover);
+    }
+
+    &.active {
+        color: #fff;
+        background-color: var(--color-sidebar-active);
+        // Portal identity color set via inline style or modifier class
+    }
+
+    .nav-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+
+    .nav-badge {
+        margin-left: auto;
+        font-size: 11px;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        padding: 2px 7px;
+        border-radius: 10px;
+    }
+}
+
+// Portal active border colors
+.sidebar-super-admin .sidebar-nav-item.active {
+    border-left-color: var(--portal-super-admin);
+}
+.sidebar-school-admin .sidebar-nav-item.active {
+    border-left-color: var(--portal-school-admin);
+}
+.sidebar-teacher .sidebar-nav-item.active {
+    border-left-color: var(--portal-teacher);
+}
+.sidebar-student .sidebar-nav-item.active {
+    border-left-color: var(--portal-student);
+}
+.sidebar-parent .sidebar-nav-item.active {
+    border-left-color: var(--portal-parent);
+}
+
+// ─── Top Navbar ────────────────────────────────────────────────────────────────
+.educore-topbar {
+    position: fixed;
+    top: 0;
+    left: var(--sidebar-width);
+    right: 0;
+    height: var(--topbar-height);
+    background: #fff;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+    z-index: 999;
+
+    .topbar-breadcrumb {
+        flex: 1;
+
+        .breadcrumb {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--color-text-dark);
+            font-weight: 600;
+        }
+    }
+
+    .topbar-search {
+        width: 280px;
+
+        .form-control {
+            font-size: 13px;
+            background: var(--color-bg);
+            border-color: var(--color-input-border);
+
+            &:focus {
+                background: #fff;
+                border-color: var(--color-primary);
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            }
+        }
+    }
+
+    .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .topbar-icon-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        border: none;
+        background: transparent;
+        color: var(--color-text-sub);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+        transition: background 0.15s;
+
+        &:hover {
+            background: var(--color-bg);
+            color: var(--color-text-dark);
+        }
+
+        .notif-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            background: var(--color-danger);
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+    }
+
+    .topbar-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+        border: 2px solid var(--color-border);
+    }
+
+    .topbar-avatar-initials {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+}
+
+// ─── Main Content Area ─────────────────────────────────────────────────────────
+.educore-main {
+    margin-left: var(--sidebar-width);
+    margin-top: var(--topbar-height);
+    min-height: calc(100vh - var(--topbar-height));
+    padding: 28px;
+}
+
+// ─── Cards ─────────────────────────────────────────────────────────────────────
+.educore-card {
+    background: var(--color-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 24px;
+
+    .card-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--color-text-dark);
+        margin-bottom: 0;
+    }
+
+    .card-subtitle {
+        font-size: 12px;
+        color: var(--color-text-mid);
+    }
+}
+
+// ─── Stat Cards ────────────────────────────────────────────────────────────────
+.stat-card {
+    background: var(--color-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 24px;
+    border-left: 4px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+    .stat-number {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--color-text-dark);
+        line-height: 1;
+        font-family: var(--font-primary);
+    }
+
+    .stat-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-text-mid);
+        margin-top: 4px;
+    }
+
+    .stat-trend {
+        font-size: 12px;
+        margin-top: 6px;
+
+        &.up {
+            color: var(--color-success);
+        }
+        &.down {
+            color: var(--color-danger);
+        }
+        &.stat-rose {
+            border-left-color: var(--color-rose);
+            .stat-icon {
+                background: rgba(219, 39, 119, 0.1);
+                color: var(--color-rose);
+            }
+        }
+    }
+
+    // Color variants
+    &.stat-blue {
+        border-left-color: var(--color-primary);
+        .stat-icon {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--color-primary);
+        }
+    }
+    &.stat-green {
+        border-left-color: var(--color-success);
+        .stat-icon {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--color-success);
+        }
+    }
+    &.stat-purple {
+        border-left-color: var(--color-purple);
+        .stat-icon {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--color-purple);
+        }
+    }
+    &.stat-orange {
+        border-left-color: var(--color-orange);
+        .stat-icon {
+            background: rgba(234, 88, 12, 0.1);
+            color: var(--color-orange);
+        }
+    }
+    &.stat-rose {
+        border-left-color: var(--color-rose);
+        .stat-icon {
+            background: rgba(219, 39, 119, 0.1);
+            color: var(--color-rose);
+        }
+    }
+}
+
+// ─── Status Badges ─────────────────────────────────────────────────────────────
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: var(--radius-badge);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    &.badge-active,
+    &.badge-present,
+    &.badge-paid,
+    &.badge-pass {
+        background: rgba(5, 150, 105, 0.12);
+        color: #047857;
+    }
+    &.badge-inactive,
+    &.badge-absent,
+    &.badge-overdue,
+    &.badge-fail,
+    &.badge-banned {
+        background: rgba(220, 38, 38, 0.12);
+        color: #b91c1c;
+    }
+    &.badge-late,
+    &.badge-pending,
+    &.badge-partial {
+        background: rgba(217, 119, 6, 0.12);
+        color: #92400e;
+    }
+    &.badge-draft,
+    &.badge-scheduled,
+    &.badge-half-day {
+        background: rgba(37, 99, 235, 0.12);
+        color: #1d4ed8;
+    }
+    &.badge-transferred,
+    &.badge-alumni,
+    &.badge-excused {
+        background: rgba(100, 116, 139, 0.12);
+        color: #475569;
+    }
+    &.badge-withheld,
+    &.badge-expired,
+    &.badge-cancelled {
+        background: rgba(219, 39, 119, 0.12);
+        color: #9d174d;
+    }
+}
+
+// ─── Tables ────────────────────────────────────────────────────────────────────
+.educore-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead tr {
+        background: #f1f5f9;
+    }
+
+    thead th {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-text-sub);
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--color-border);
+        white-space: nowrap;
+    }
+
+    tbody td {
+        font-size: 14px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--color-border);
+        color: var(--color-text-dark);
+        vertical-align: middle;
+    }
+
+    tbody tr:hover {
+        background: #f8fafc;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .table-action-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        border: none;
+        background: transparent;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.15s;
+        color: var(--color-text-sub);
+
+        &:hover {
+            background: var(--color-bg);
+            color: var(--color-text-dark);
+        }
+        &.btn-edit:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--color-primary);
+        }
+        &.btn-delete:hover {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--color-danger);
+        }
+        &.btn-view:hover {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--color-success);
+        }
+    }
+}
+
+// ─── Page Header ───────────────────────────────────────────────────────────────
+.page-header {
+    margin-bottom: 24px;
+
+    .page-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--color-text-dark);
+        margin-bottom: 2px;
+    }
+
+    .page-subtitle {
+        font-size: 13px;
+        color: var(--color-text-mid);
+    }
+}
+
+// ─── Form Styles ───────────────────────────────────────────────────────────────
+.form-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-label);
+    margin-bottom: 6px;
+}
+
+.form-control,
+.form-select {
+    border-color: var(--color-input-border);
+    border-radius: var(--radius-input);
+    font-size: 14px;
+    padding: 10px 14px;
+    color: var(--color-text-dark);
+
+    &:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+}
+
+// ─── Buttons ───────────────────────────────────────────────────────────────────
+.btn {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: var(--radius-btn);
+    padding: 10px 20px;
+    transition: all 0.15s ease;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+
+    &:hover {
+        background: #1d4ed8;
+        border-color: #1d4ed8;
+    }
+}
+
+.btn-outline-primary {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+
+    &:hover {
+        background: var(--color-primary);
+        color: #fff;
+    }
+}
+
+// ─── Utilities ─────────────────────────────────────────────────────────────────
+.text-muted-sm {
+    font-size: 12px;
+    color: var(--color-text-mid);
+}
+
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-initials-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: #fff;
+}
+
+// ─── Table Action Button Improvements ─────────────────────────
+.table-action-btn {
+    border: 1px solid var(--color-border) !important;
+    background: #fff !important;
+
+    &.btn-edit:hover {
+        border-color: var(--color-primary) !important;
+    }
+
+    &.btn-delete:hover {
+        border-color: var(--color-danger) !important;
+    }
+
+    &.btn-view:hover {
+        border-color: var(--color-success) !important;
+    }
+}
